@@ -98,9 +98,18 @@ const path = require("path");
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+app.use((req, res, next) => {
+  console.log(`Incoming request to ${req.url}`);
+  next();
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+}
 
 
 server.listen(PORT, () => {
