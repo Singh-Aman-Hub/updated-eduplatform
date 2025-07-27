@@ -1,8 +1,9 @@
 import axios from 'axios'
+require('dotenv').config();
 
 const instance = axios.create({
-    baseURL:"http://localhost:3010"
-    // baseURL:"https://01wt8cb9-3010.inc1.devtunnels.ms/"
+    baseURL: process.env.REACT_APP_API_URL || "http://localhost:3010"
+    // baseURL: process.env.REACT_APP_API_URL || "https://01wt8cb9-3010.inc1.devtunnels.ms/"
 
 })
 
