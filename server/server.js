@@ -119,7 +119,7 @@ io.on('connection', (socket) => {
 //   });
 // }
 
-
+const PORT= process.nextTick.PORT || 3010
 server.listen(PORT, () => {
   console.log(`The server is running on port - ${PORT}`)
     console.log(`Server running on http://localhost:${PORT}`);
