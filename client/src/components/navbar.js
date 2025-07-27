@@ -70,8 +70,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       <div className={`mobile-nav ${isOpen ? 'show' : ''}`}>
         <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-        <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
-        <Link to="/recommend" onClick={() => setIsOpen(false)}>Recommend</Link>
+       
         {/* <Link to="/profile" onClick={() => setIsOpen(false)}>Profile</Link> */}
         {!token ? (
                 <>
@@ -82,6 +81,12 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
+
+                  <Link to="/chatpage" onClick={() => setIsOpen(false)}>ChatBox</Link>
+                    
+                    {student==='school' && <Link to="/match" onClick={() => setIsOpen(false)}>AI Profile-Match</Link>}
+                    {student==='school' && <Link to="/browseseniors" onClick={() => setIsOpen(false)}>Browse-Seniors</Link>}
+     
                   <Link to="/profile" onClick={() => setIsOpen(false)}>Profile - {username.split(" ")[1]}</Link>
                   <button className="logout-btn" onClick={handleLogout}>Logout</button>
                 </>
