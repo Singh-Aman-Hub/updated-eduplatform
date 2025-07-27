@@ -11,6 +11,12 @@ const Chat = require('./models/Chat');
 const bodyParser= require('body-parser')
 require('dotenv').config();
 
+// import path from "path";
+// import { fileURLToPath } from "url";
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+
 
 const PORT=process.env.PORT
 const app = express()
@@ -93,23 +99,24 @@ io.on('connection', (socket) => {
 // })
 
 //chnages to render the client and server together
-const path = require("path");
+
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../client/build")));
+// app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.use((req, res, next) => {
-  console.log(`Incoming request to ${req.url}`);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(`Incoming request to ${req.url}`);
+//   next();
+// });
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/build")));
+
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../client/build/index.html"));
+//   });
+// }
 
 
 server.listen(PORT, () => {

@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../axiosConfig';
 import './loginSurya.css';
+import Loading from './loading';
+
 
 function Login() {
+
+  const[isLoading,setIsLoading]=useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: '',
@@ -16,9 +20,13 @@ function Login() {
 
   const submit = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
     try {
       const response = await axios.post('/login', data);
       console.log(response);
+
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', response.data.user.id);
       localStorage.setItem('student', response.data.user.student);
@@ -34,9 +42,14 @@ function Login() {
       }
       setData({ email: '', password: '' });
       console.error('Login failed', err);
+    }finally{
+      setIsLoading(false);
     }
   };
 
+  if(isLoading){
+    return <Loading/>
+  }else{
   return (
     <div className="auth-container">
       {/* Branding Section */}
@@ -115,7 +128,7 @@ function Login() {
         </div>
       </div>
     </div>
-  );
+  )}
 }
 
 export default Login;

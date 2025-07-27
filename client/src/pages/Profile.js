@@ -188,7 +188,7 @@ const Profile = () => {
               </>
             ) : (
               <>
-                {renderDetail("College Type", profile.preferences?.collegeType)}
+                {renderDetail("Preferred College Type", profile.preferences?.collegeType)}
                 {renderDetail("Field Interest", profile.preferences?.fieldInterest)}
                 {renderDetail("Location Preference", profile.preferences?.locationPreference)}
               </>

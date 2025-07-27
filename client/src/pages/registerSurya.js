@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../axiosConfig';
 import './loginSurya.css';
+import Loading from './loading';
 
 const RegisterSurya = () => {
+  
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -54,7 +56,9 @@ const RegisterSurya = () => {
       setIsLoading(false);
     }
   };
-
+ if(isLoading){
+    return <Loading/>
+  }else{
   return (
     <div className="auth-container">
       {/* Left Section: Branding */}
@@ -88,7 +92,7 @@ const RegisterSurya = () => {
                 type="text"
                 id="name"
                 name="name"
-                placeholder="John Doe"
+                placeholder="Your name here"
                 value={form.name}
                 onChange={update}
                 required
@@ -120,7 +124,7 @@ const RegisterSurya = () => {
                 required
               />
             </div>
-
+            <h5>* Choose "School Student" below to avail the services</h5>
             <div className="input-group">
               <label htmlFor="student">I am a</label>
               <div className="select-wrapper">
@@ -150,21 +154,13 @@ const RegisterSurya = () => {
             </button>
           </form>
 
-          <div className="separator">
-            <span>OR</span>
-          </div>
+          
 
-          <button className="social-btn">
-            <svg className="social-icon" viewBox="0 0 48 48" width="24" height="24">
-              <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8..."/>
-              {/* Shortened path for readability */}
-            </svg>
-            Sign up with Google
-          </button>
+          
         </div>
       </div>
     </div>
-  );
+  );}
 };
 
 export default RegisterSurya;
