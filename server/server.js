@@ -21,9 +21,10 @@ require('dotenv').config();
 
 const app = express()
 const server = http.createServer(app);
+
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:3000","https://01wt8cb9-3000.inc1.devtunnels.ms"], // Frontend URL
+        origin: process.env.frontend_url || ["http://localhost:3000","https://01wt8cb9-3000.inc1.devtunnels.ms"], // Frontend URL
         methods: ["GET", "POST"],
         credentials: true
     },
@@ -31,7 +32,7 @@ const io = new Server(server, {
     allowEIO3: true
 });
 app.use(cors({
-  origin: ['http://localhost:3000',"https://01wt8cb9-3000.inc1.devtunnels.ms"],
+  origin: process.env.frontend_url || ['http://localhost:3000',"https://01wt8cb9-3000.inc1.devtunnels.ms"],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }))
