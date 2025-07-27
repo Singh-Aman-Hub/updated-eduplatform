@@ -1,0 +1,31 @@
+/* ChatPage.css */
+
+.chat-page-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.left-panel {
+  width: 30%;
+  max-width: 400px;
+  min-width: 250px;
+  border-right: 1px solid #f0c0a0;
+  overflow-y: auto;
+  background-color: #fff7f2;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fffaf6;
+}
+
+.no-chat-selected {
+  margin: auto;
+  color: #d08c60;
+  font-size: 18px;
+  text-align: center;
+}

@@ -1,0 +1,391 @@
+
+/* Base Styles & Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Darker Peach & White Color Palette */
+  --peach-primary-dark: #E59866; /* Base Darker Peach */
+  --peach-accent-dark: #D35400; /* Richer, darker orange for accents */
+  --text-on-peach-dark: #FFFFFF; /* White text for better contrast */
+  --cream-white: #F8F7F4; 
+  --text-dark: #1A202C;
+  --text-light: #4A5568;
+  --border-color: #E2E8F0;
+  --success-bg: #D4EDDA;
+  --success-text: #155724;
+  --error-bg: #F8D7DA;
+  --error-text: #721C24;
+
+  /* Previous bubble colors are no longer used for this background, but kept for reference if needed elsewhere */
+  --bubble-shine-light: hsla(26, 100%, 98%, 0.95);
+  --bubble-light: hsla(26, 90%, 85%, 0.7);
+  --bubble-medium: hsla(26, 70%, 70%, 0.6);
+  --bubble-dark: hsla(26, 50%, 50%, 0.5);
+  --bubble-shadow: hsla(26, 50%, 20%, 0.25);
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Main Container - Split Screen Layout */
+.auth-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Left Side: Branding Section */
+.branding-section {
+  width: 50%;
+  position: relative; /* Crucial for pseudo-element positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  
+  /* --- MODIFIED: Base background for the section --- */
+  /* This ensures the section has a background even if the image fails or for a color overlay */
+  background-color: var(--peach-primary-dark); 
+  
+  overflow: hidden; 
+}
+
+/* --- NEW: Pseudo-element for the blurred background image --- */
+.branding-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./login.png'); /* Your uploaded image URL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px); /* Apply blur only to this pseudo-element */
+  transform: scale(1.02); /* Slight scale to prevent blur artifacts at edges */
+  z-index: 0; /* Place it behind the content */
+}
+
+.branding-content {
+  position: relative;
+  z-index: 1; /* Ensure content is on top of the blurred pseudo-element */
+  max-width: 500px;
+  color: var(--text-on-peach-dark);
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.6); /* For better text readability */
+}
+
+.branding-content .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.branding-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.branding-content p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+
+/* Right Side: Form Section */
+.form-section {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cream-white);
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-wrapper h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.form-subheading {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+/* This styles the <Link> component from react-router-dom */
+.form-subheading a, .forgot-password-btn {
+  color: var(--peach-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-subheading a:hover, .forgot-password-btn:hover {
+  text-decoration: underline;
+}
+
+/* Form Styling */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+/* MODIFIED: Combined input and select styling for consistent width */
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  /* Added for select box consistency */
+  appearance: none; /* Remove default dropdown arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  cursor: pointer;
+}
+
+/* Wrapper for custom dropdown arrow */
+.select-wrapper {
+    position: relative;
+}
+
+/* Custom dropdown arrow */
+.select-wrapper::after {
+    content: '▼'; /* Unicode character for a down arrow */
+    position: absolute;
+    top: 50%;
+    right: 1rem; /* Adjust to match padding of input fields */
+    transform: translateY(-50%);
+    color: var(--text-light); /* Or your preferred arrow color */
+    pointer-events: none; /* Allow clicks to pass through to the select */
+    font-size: 0.8rem;
+}
+
+/* Style for unselected option (optional, but good for placeholder) */
+.input-group select.unselected {
+    color: #999; /* Grey out placeholder text */
+}
+
+
+/* Focus state for both input and select */
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: var(--peach-accent-dark);
+  box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.2);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-group label {
+  color: var(--text-light);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 0.9rem; /* Consistent padding with auth-btn */
+  margin-top: 1rem;
+  background-color: var(--peach-accent-dark);
+  color: var(--cream-white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.auth-btn:hover {
+  background-color: #A04000;
+}
+
+.auth-btn:disabled {
+  background-color: #f3a67a;
+  cursor: not-allowed;
+}
+
+.forgot-password-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Notification Styles */
+.notification {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.notification.success {
+  color: var(--success-text);
+  background-color: var(--success-bg);
+  border-color: #C3E6CB;
+}
+
+.notification.error {
+  color: var(--error-text);
+  background-color: var(--error-bg);
+  border-color: #F5C6CB;
+}
+
+/* MODIFIED: "OR" separator styling */
+.separator {
+  /* Use flexbox for robust centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0;
+  color: var(--text-light); /* Consistent text color */
+}
+
+.separator span {
+  /* Give the text a background to "cut out" the line */
+  background-color: var(--cream-white); /* Match form-section background */
+  padding: 0 1rem; /* Space around the "OR" text */
+  position: relative; /* Needed for z-index, if lines were actual siblings */
+  z-index: 1; /* Ensures "OR" is above the lines */
+}
+
+/* Lines for the "OR" separator */
+.separator::before,
+.separator::after {
+  content: '';
+  flex-grow: 1; /* Makes lines take up available space */
+  height: 1px;
+  background-color: var(--border-color); /* Consistent border color for lines */
+  /* Remove absolute positioning as flex handles layout now */
+}
+
+
+/* MODIFIED: Social Button Styling (White Background, Black Text) */
+.social-btn {
+  width: 100%;
+  padding: 0.9rem; /* Consistent padding with auth-btn */
+  background-color: #FFFFFF; /* Changed background color to white */
+  color: var(--text-dark); /* Changed text color to black (using variable) */
+  border: 1px solid var(--border-color); /* Using variable for consistency */
+  border-radius: 8px; /* Consistent border-radius */
+  font-size: 1rem; /* Consistent font-size */
+  font-weight: 600; /* Consistent font-weight */
+  cursor: pointer;
+  display: flex; /* Ensures children are in a row */
+  align-items: center; /* Vertically centers icon and text */
+  justify-content: center; /* Horizontally centers the whole content */
+  gap: 0.75rem; /* Adds space between icon and text */
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevents text from wrapping */
+  box-sizing: border-box; /* Ensures padding and border are included in width */
+}
+
+.social-btn:hover {
+  background-color: var(--border-color); /* A subtle hover effect for a white button */
+}
+
+.social-icon {
+  flex-shrink: 0; /* Prevents SVG from shrinking if space is tight */
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .auth-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .branding-section,
+  .form-section {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .branding-section {
+    height: 250px;
+    padding: 2rem;
+    /* For smaller screens, apply image directly and blur */
+    background-color: var(--peach-primary-dark); /* Fallback */
+    position: relative; /* Ensure relative for pseudo-element */
+    overflow: hidden;
+  }
+
+  .branding-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./login.png'); /* Your uploaded image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(5px); /* Blur applied */
+    transform: scale(1.02);
+    z-index: 0;
+  }
+
+
+  .branding-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .branding-content p {
+    display: none;
+  }
+
+  .form-section {
+    padding: 2rem 1.5rem;
+  }
+}
+
+#registerHead{
+  margin-top: 30px;
+}

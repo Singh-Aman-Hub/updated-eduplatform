@@ -1,0 +1,150 @@
+/* client/src/pages/Homepage.css */
+
+.homepage {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  margin-top:2vh;
+  margin-bottom: 0.5vh;
+  height: 40vh;
+  background: url("../../../client/public/Image/image-d.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 95vw;
+  animation: 8s alternate-reverse 0s infinite change;
+  
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  color: #fff;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  background-color: #ff5e57;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #e04e49;
+}
+
+/* Info Section */
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 3rem;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.info-card h3 {
+  color: #ff5e57;
+  margin-bottom: 0.5rem;
+}
+
+/* Call to Action Section */
+.cta-section {
+  background-color: #ff5e57;
+  color: #fff;
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-bottom: 3vh;
+}
+
+.cta-section h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  margin-bottom: 2rem;
+}
+
+.cta-section .cta-btn {
+  background-color: #fff;
+  color: #ff5e57;
+  border: 2px solid #fff;
+}
+
+.cta-section .cta-btn:hover {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+@keyframes change {
+  10%{
+    background: url("../../public/Image/image-d.png") center/cover no-repeat;
+  }
+  40%{
+    background: url("../../public/Image/image-e.png") center/cover no-repeat;
+  }
+  70%{
+    background: url("../../public/Image/image-f.png") center/cover no-repeat;
+  }
+
+  
+}
+
+.info-overlay{
+  background-color: rgba(0, 0, 0, 0.718);
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+ 
+}
+#info1{
+  background-image: url("../../public/Image/mentor.png");
+  background-size: cover;
+}
+#info2{
+  background-image: url("../../public/Image/match.png");
+  background-size: cover;
+}
+#info3{
+  background-image: url("../../public/Image/support.png");
+  background-size: cover;
+}

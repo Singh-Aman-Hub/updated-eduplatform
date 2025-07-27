@@ -1,0 +1,150 @@
+/* BrowseSeniors.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background: linear-gradient(135deg, #fff1eb, #ace0f9); */
+}
+
+.browse-seniors-container {
+  min-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.browse-title {
+  font-size: 2.8rem;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+.senior-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 30px;
+  padding: 0 10px;
+}
+
+.senior-card {
+  background: linear-gradient(to bottom right, #ffe5d4, #fffdfb);
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 24px 22px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #ffc4aa;
+}
+
+.senior-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(to bottom right, #fff0e6, #fff);
+}
+
+.senior-info h3 {
+  font-size: 1.6rem;
+  color: #2e2e2e;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.senior-info p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #5a5a5a;
+  line-height: 1.4;
+}
+
+.message-btn {
+  margin-top: 20px;
+  background-color: #ff8f70;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.message-btn:hover {
+  background-color: #e86a4d;
+  transform: scale(1.05);
+}
+
+/* Responsive Tweaks */
+@media screen and (max-width: 768px) {
+  .browse-title {
+    font-size: 2.2rem;
+  }
+
+  .senior-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .senior-info p {
+    font-size: 0.95rem;
+  }
+
+  .message-btn {
+    font-size: 0.95rem;
+  }
+}
+
+.profile-button {
+  margin-left:85%;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #ff4400c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+
+.senior-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.senior-image-container {
+  padding-bottom: 120px;
+  margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.senior-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff8f70;
+}
+
+/* Make sure image adjusts well on small screens */
+@media screen and (max-width: 768px) {
+  .senior-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .senior-image-container {
+    margin: 20px 0 0 0;
+    padding-bottom: 50px;
+  }
+
+  .senior-image {
+    width: 80px;
+    height: 80px;
+  }
+}
