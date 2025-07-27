@@ -75,9 +75,9 @@ const Navbar = () => {
         {!token ? (
                 <>
             
-                  <Link to="/loginSurya" onClick={() => setIsOpen(false)}>LoginSurya</Link>
+                  <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
              
-                  <Link to="/registerSurya" onClick={() => setIsOpen(false)}>RegisterSurya</Link>
+                  <Link to="/register" onClick={() => setIsOpen(false)}>Register</Link>
                 </>
               ) : (
                 <>
