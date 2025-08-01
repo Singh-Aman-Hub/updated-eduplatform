@@ -188,3 +188,33 @@ textarea {
 h5{
   color:red;
 }
+
+
+#g-loader {
+  margin-top: 70%;
+  margin-left:10%;
+  height: 200px;
+  width: 200px;
+  border-radius: 90%;
+
+  
+}
+
+#g-loader {
+  border-top: 15px solid #B3D8A8;
+  border-left: 15px solid #3D8D7A;
+  border-right: 15px solid #3D8D7A;
+  border-bottom: 15px solid #3D8D7A;
+  animation: spin 1s linear infinite;
+  z-index: 3;
+  box-shadow: 0 0 20px #3D8D7A;
+}
+
+#g-space{
+  height: 20%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

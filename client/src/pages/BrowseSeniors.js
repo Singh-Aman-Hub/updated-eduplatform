@@ -46,11 +46,7 @@ const BrowseSeniors = () => {
             <div id="g-loader">
             </div>
             <div id='g-space'></div>
-            <h2 align='center' >Just a second buddy!</h2>
-            
-
-
-            
+            <h2 align='center' >Just a second buddy!</h2> 
         </div>
         )
     }

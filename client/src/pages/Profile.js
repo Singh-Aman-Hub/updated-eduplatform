@@ -9,6 +9,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null); // for preview
+  const [load,setLoad]= useState(true)
   const fileInputRef = useRef(null); // to trigger file input click
 
   const studentType = localStorage.getItem('student');
@@ -29,6 +30,8 @@ const Profile = () => {
         } else {
           console.error('Fetch error:', err);
         }
+      }finally{
+        setLoad(false);
       }
     };
     fetchData();
@@ -112,7 +115,7 @@ const Profile = () => {
     navigate('/login');
   };
 
-  if (!profile) return <div className="loading">Loading profile...</div>;
+  // if (!profile) return <div className="loading">Loading profile...</div>;
 
   const renderDetail = (label, value) => (
     <div className="profile-detail">
@@ -120,6 +123,18 @@ const Profile = () => {
       <p>{value || 'Not Available'}</p>
     </div>
   );
+
+  if(load){
+        return(
+        <div className='g-load-container'>
+            
+            <div id="g-loader">
+            </div>
+            <div id='g-space'></div>
+            <h2 align='center' >Just a second buddy!</h2> 
+        </div>
+        )
+    }
 
   return (
     <div className="profile-container">
