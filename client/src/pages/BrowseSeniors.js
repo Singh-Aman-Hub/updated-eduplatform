@@ -5,6 +5,7 @@ import './BrowseSeniors.css';
 
 const BrowseSeniors = () => {
     const [seniors, setSeniors] = useState([]);
+    const [load,setLoad]= useState(true);
     const navigate = useNavigate();
 
     const loggedInUser = localStorage.getItem('user');
@@ -24,6 +25,8 @@ const BrowseSeniors = () => {
                     navigate('/login');
                 }
                 console.error('Error fetching seniors:', err);
+            }finally{
+                setLoad(false);
             }
         };
         fetchSeniors();
@@ -35,6 +38,22 @@ const BrowseSeniors = () => {
         localStorage.setItem("chat_senderId", juniorId);
         navigate('/chatpage');
     };
+
+    if(load){
+        return(
+        <div className='g-load-container'>
+            
+            <div id="g-loader">
+            </div>
+            <div id='g-space'></div>
+            <h2 align='center' >Just a second buddy!</h2>
+            
+
+
+            
+        </div>
+        )
+    }
 
     return (
         <div className="browse-seniors-container">
@@ -50,7 +69,7 @@ const BrowseSeniors = () => {
                                 <p><strong>College:</strong> {senior.college || "N/A"}</p>
                                 <p><strong>City:</strong> {senior.city || "N/A"}</p>
 
-                                <button className="message-btn" onClick={() => window.location.href = `/profile/${senior._id}`}>
+                                <button className="message-btn" onClick={() => navigate(`/profile/${senior._id}`)}>
                                     View Profile
                                 </button>
                                 <button className="message-btn" onClick={() => handleSendMessage(senior)}>

@@ -141,10 +141,20 @@ router.get('/seniorProfile/:id',async (req, res) => {
   try{
     const {id}= req.params;
     const user=await User.findById(id);
+    let imageBase64 = null;
+
+    if (user.image && user.image.data) {
+      imageBase64 = `data:${user.image.contentType};base64,${user.image.data.toString('base64')}`;
+    }
+
+    const data={
+        ...user.toObject(),
+        image: imageBase64,
+    };
     
       res.json({msg: `Hola ${user.name+" "},`,
       
-      data:user
+      data:data
       });
   }catch(err){
       res.status(500).json(err+"change it man!")
@@ -224,7 +234,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Update senior extended profile
+
 // Update senior extended profile with optional image
 router.put('/profile/senior/:id', upload.single('image'), async (req, res) => {
   const { college, fieldOfStudy, goals, currentFee, city, degree } = req.body;
