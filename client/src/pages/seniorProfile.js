@@ -29,7 +29,7 @@ const SeniorProfile = () => {
 
 
   if (error) return <div className="error">{error}</div>;
-  if (!seniorData) return <div className="loading">Loading senior profile...</div>;
+  // if (!seniorData) return <div className="loading">Loading senior profile...</div>;
   const loggedInUser = localStorage.getItem('user');
   const juniorId = loggedInUser;
 
