@@ -9,7 +9,7 @@ const SeniorProfile = () => {
   const { id } = useParams();
   const [seniorData, setSeniorData] = useState(null);
   const [error, setError] = useState("");
-  const [load,setLoad]= useState(true);
+ 
 
   useEffect(() => {
     const fetchSeniorProfile = async () => {
@@ -18,8 +18,6 @@ const SeniorProfile = () => {
         setSeniorData(res.data.data);
       } catch (err) {
         setError("Unable to fetch senior profile. Please try again later.");
-      }finally{
-        setLoad(false);
       }
     };
 
@@ -55,7 +53,7 @@ const SeniorProfile = () => {
         navigate('/chatpage');
     };
 
-  if(load){
+  if(!seniorData){
         return(
         <div className='g-load-container'>
             
