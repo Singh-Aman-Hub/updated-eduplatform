@@ -9,7 +9,6 @@ const SeniorProfile = () => {
   const { id } = useParams();
   const [seniorData, setSeniorData] = useState(null);
   const [error, setError] = useState("");
- 
 
   useEffect(() => {
     const fetchSeniorProfile = async () => {
@@ -27,7 +26,15 @@ const SeniorProfile = () => {
 
 
   if (error) return <div className="error">{error}</div>;
-  // if (!seniorData) return <div className="loading">Loading senior profile...</div>;
+  if (!seniorData)  return(
+        <div className='g-load-container'>
+            
+            <div id="g-loader">
+            </div>
+            <div id='g-space'></div>
+            <h2 align='center' >Just a second buddy!</h2> 
+        </div>
+        );
   const loggedInUser = localStorage.getItem('user');
   const juniorId = loggedInUser;
 
@@ -52,18 +59,6 @@ const SeniorProfile = () => {
 
         navigate('/chatpage');
     };
-
-  if(!seniorData){
-        return(
-        <div className='g-load-container'>
-            
-            <div id="g-loader">
-            </div>
-            <div id='g-space'></div>
-            <h2 align='center' >Just a second buddy!</h2> 
-        </div>
-        )
-    }
 
   return (
     <div className="senior-profile-container">
