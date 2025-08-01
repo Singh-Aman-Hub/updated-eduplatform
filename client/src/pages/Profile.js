@@ -151,6 +151,7 @@ const Profile = () => {
           <span className="profile-type">
             {profile.student === 'college' ? 'Senior Student' : 'Junior Student'}
           </span>
+          {(!profile.image) && <h5>* Click on EDIT option to add additional details to profile incl your profile photo!</h5>}
         </div>
 
         <div className="right-section">

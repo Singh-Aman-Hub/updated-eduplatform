@@ -23,12 +23,7 @@ const SeniorProfile = () => {
     fetchSeniorProfile();
   }, [id]);
 
-  const convertBufferToBase64 = (bufferData) => {
-    if (!bufferData) return null;
-    return `data:image/jpeg;base64,${btoa(
-      String.fromCharCode(...new Uint8Array(bufferData))
-    )}`;
-  };
+
 
   if (error) return <div className="error">{error}</div>;
   if (!seniorData) return <div className="loading">Loading senior profile...</div>;
@@ -62,13 +57,9 @@ const SeniorProfile = () => {
       <div className="senior-profile-card">
         <div className="left-section">
           <img
-            src={
-              image?.data
-                ? convertBufferToBase64(image.data.data)
-                : "/default-profile.png"
-            }
-            alt={name}
-            className="profile-img"
+            src={image || '/Image/default-profile.png'}
+            alt={`${name}'s profile`}
+            className="senior-image"
           />
           <h2 className="profile-name">{name || "Not Available"}</h2>
           <span className="profile-type">{student +" Student"|| "Not Available"}</span>

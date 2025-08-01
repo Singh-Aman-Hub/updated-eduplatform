@@ -8,6 +8,7 @@ const BrowseSeniors = () => {
     const navigate = useNavigate();
 
     const loggedInUser = localStorage.getItem('user');
+    const student = localStorage.getItem('student');
     const juniorId = loggedInUser;
 
     useEffect(() => {
@@ -37,7 +38,8 @@ const BrowseSeniors = () => {
 
     return (
         <div className="browse-seniors-container">
-            <h2 className="browse-title">Connect with Seniors</h2>
+            {student==="school"&&  <h2 className="browse-title">Connect with Seniors</h2>}
+            {student==="college" &&  <h2 className="browse-title">Connect with other College Buddies</h2>}
             <div className="senior-grid">
                 {seniors.map((senior) => (
                     <div key={senior._id} className="senior-card">
