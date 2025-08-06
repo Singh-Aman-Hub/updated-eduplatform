@@ -18,7 +18,7 @@ const ChatWindow = ({ senderId, receiverId, receiver }) => {
 
         if (!socketRef.current) {
             console.log('🔌 Creating new socket connection...');
-            socketRef.current = io('http://localhost:3010', {
+            socketRef.current = io(process.env.REACT_APP_API_URL||'http://localhost:3010', {
                 auth: { token: localStorage.getItem('token') },
                 transports: ['websocket'],
                 withCredentials: true,
