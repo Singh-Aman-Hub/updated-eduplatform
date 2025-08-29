@@ -13,8 +13,8 @@ const upload = multer({ storage });
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI("AIzaSyD5_ZQccuCd0gRCbqRKKobH-BzavyQcYRE"); 
 
-const JWT_SECRET= "helloWorld"
-console.log("JWT_SECRET:", JWT_SECRET);
+const JWT_SECRET= process.env.JWT_SECRET
+// console.log("JWT_SECRET:", JWT_SECRET);
 
 //Gemini Prompting function starts here-----
 
@@ -226,7 +226,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ msg: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '6h' });
 
     res.json({ token, user: { id: user._id,student:user.student, name: user.name, email: user.email } });
   } catch (err) {
@@ -329,7 +329,7 @@ router.post('/register', async (req, res) => {
     const newUser = new User({ name, email, student ,password: hashedPwd});
     await newUser.save();
 
-    const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: '6h' });
 
     res.status(201).json({
       token,

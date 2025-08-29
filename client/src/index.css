@@ -1,3 +1,19 @@
+:root {
+  --bg-app: #fffaf6;
+  --bg-panel: #fff7f2;
+  --border-subtle: #f0c0a0;
+  --primary: #ff704d;
+  --primary-dark: #e6603d;
+  --accent: #df95b4;
+  --accent-2: #e43880c9;
+  --text-primary: #251714e5;
+  --text-muted: #666666;
+  --bubble-sent-bg: #ff704d;
+  --bubble-sent-text: #ffffff;
+  --bubble-recv-bg: #ffe1d2;
+  --bubble-recv-text: #000000;
+}
+
 body {
   color: azure;
   margin: 0;
@@ -6,6 +22,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-app);
 }
 
 code {

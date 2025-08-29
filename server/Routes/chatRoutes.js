@@ -59,7 +59,7 @@ router.get('/chats/:senderId/:receiverId',authMiddleware, async (req, res) => {
 
 router.get('/chatslist/:userId', authMiddleware,async (req, res) => {
     const { userId } = req.params;
-    console.log("✅ API HIT: userId =", userId);
+    // console.log("✅ API HIT: userId =", userId);
 
     // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -69,26 +69,29 @@ router.get('/chatslist/:userId', authMiddleware,async (req, res) => {
 
     try {
         const objectId = new mongoose.Types.ObjectId(userId);
-        console.log("✅ Converted userId to ObjectId:", objectId);
+        // console.log("✅ Converted userId to ObjectId:", objectId);
 
         const chats = await Chat.find({ participants: objectId })
             .populate('participants', 'name email')
             .sort({ updatedAt: -1 });
 
-        console.log("✅ Chats fetched:", chats);
+        // console.log("✅ Chats fetched:", chats);
 
         const contacts = chats.map(chat => {
             const otherUser = chat.participants.find(
                 p => p && p._id.toString() !== userId
             );
             if (!otherUser) return null; // Skip if no other user
+            console.log(chat.updatedAt);
             return {
                 contactId: otherUser._id,
                 name: otherUser.name,
                 email: otherUser.email,
                 lastMessage: chat.messages.length > 0
                     ? chat.messages[chat.messages.length - 1].text
-                    : ''
+                    : '',
+                time:chat.updatedAt
+                
             };
         }).filter(Boolean);
 

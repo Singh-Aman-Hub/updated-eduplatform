@@ -13,14 +13,15 @@
   min-width: 250px;
   border-right: 1px solid #f0c0a0;
   overflow-y: auto;
-  background-color: #fff7f2;
+  background-color: var(--bg-panel);
+  
 }
 
 .right-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #fffaf6;
+  background-color: var(--bg-app);
 }
 
 .no-chat-selected {
@@ -28,4 +29,21 @@
   color: #d08c60;
   font-size: 18px;
   text-align: center;
+}
+
+/* Mobile layout: stack panels and show only list or chat */
+@media (max-width: 768px) {
+  .chat-page-container {
+    height: calc(100vh - 56px);
+    width: 100%;
+  }
+  .left-panel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-right: none;
+  }
+  .right-panel {
+    width: 100%;
+  }
 }

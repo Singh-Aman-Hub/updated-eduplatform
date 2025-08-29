@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import axios from '../axiosConfig';
 import './ChatWindow.css';
 
-const ChatWindow = ({ senderId, receiverId, receiver }) => {
+const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
@@ -36,6 +36,8 @@ const ChatWindow = ({ senderId, receiverId, receiver }) => {
             if (message.senderId !== senderId) {
                 console.log('📥 Received message:', message);
                 setMessages((prev) => [...prev, message]);
+                // notify chat list to refresh ordering/last message
+                triggerRefresh && triggerRefresh();
             } else {
                 console.log('Received message sent by current user:', message);
             }
@@ -58,7 +60,7 @@ const ChatWindow = ({ senderId, receiverId, receiver }) => {
             socket.emit('leaveRoom', { roomId: roomId() });
             socket.off('receiveMessage', handleReceiveMessage);
         };
-    }, [roomId, senderId, receiverId]);
+    }, [roomId, senderId, receiverId, triggerRefresh]);
 
     const sendMessage = () => {
         if (input.trim() === '') return;
@@ -78,7 +80,8 @@ const ChatWindow = ({ senderId, receiverId, receiver }) => {
             receiverId,
             text: input,
         });
-        
+        // ensure chat list updates immediately
+        triggerRefresh && triggerRefresh();
 
         setInput('');
     };
@@ -89,15 +92,14 @@ const ChatWindow = ({ senderId, receiverId, receiver }) => {
 
     return (
         <div className="chat-window">
-            {localStorage.getItem('student') === 'school' ? (
-                <div className="chat-header">
-                    Ask your Senior - <u>{receiver}</u>
-                </div>
-            ) : (
-                <div className="chat-header">
-                    Assist your Junior - <u>{receiver}</u>
-                </div>
-            )}
+            <div className="chat-header">
+                <button className="back-btn" onClick={onBack}>Back</button>
+                {localStorage.getItem('student') === 'school' ? (
+                    <span>Ask your Senior - <u>{receiver}</u></span>
+                ) : (
+                    <span>Assist your Junior - <u>{receiver}</u></span>
+                )}
+            </div>
 
             <div className="chat-body">
                 {messages.map((msg, idx) => (

@@ -1,10 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import io from 'socket.io-client';
 import axios from '../axiosConfig';
 import './ChatList.css';
 
-const ChatList = ({ onChatSelect }) => {
+const ChatList = ({ onChatSelect, refreshChats }) => {
     const [chats, setChats] = useState([]);
+    const socketRef = useRef(null);
+    const refreshTimerRef = useRef(null);
     const student = localStorage.getItem('student');
+
+    const fetchChats = async () => {
+        const userId = localStorage.getItem('user');
+        if (!userId) {
+            console.error("❌ No logged-in user found in localStorage");
+            return;
+        }
+        try {
+            const res = await axios.get(`/api/chatslist/${userId}`);
+            console.log("✅ Chat list fetched:", res.data);
+            setChats(res.data);
+        } catch (err) {
+            if (err.response?.status === 400) {
+                alert("Your session expired, Kindly login again!");
+                localStorage.removeItem("user");
+                localStorage.removeItem("student");
+                localStorage.removeItem("token");
+                window.location.href = '/login';
+            }
+            console.error('❌ Error fetching chat list:', err);
+        }
+    };
 
     useEffect(() => {
         const userId = localStorage.getItem('user');
@@ -12,25 +37,45 @@ const ChatList = ({ onChatSelect }) => {
             console.error("❌ No logged-in user found in localStorage");
             return;
         }
-
-        const fetchChats = async () => {
-            try {
-                const res = await axios.get(`/api/chatslist/${userId}`);
-                console.log("✅ Chat list fetched:", res.data);
-                setChats(res.data);
-            } catch (err) {
-                if (err.response?.status === 400) {
-                    alert("Your session expired, Kindly login again!");
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("student");
-                    localStorage.removeItem("token");
-                    window.location.href = '/login';
-                }
-                console.error('❌ Error fetching chat list:', err);
-            }
-        };
-
         fetchChats();
+    }, []);
+
+    useEffect(() => {
+        // Trigger refetch when parent toggles refresh flag
+        fetchChats();
+    }, [refreshChats]);
+
+    // Live updates via socket: join personal room and listen for chatListUpdate
+    useEffect(() => {
+        const userId = localStorage.getItem('user');
+        if (!userId) return;
+        if (!socketRef.current) {
+            socketRef.current = io(process.env.REACT_APP_API_URL || 'http://localhost:3010', {
+                auth: { token: localStorage.getItem('token') },
+                transports: ['websocket'],
+                withCredentials: true,
+            });
+        }
+        const socket = socketRef.current;
+        const joinUserRoom = () => {
+            socket.emit('joinRoom', { roomId: String(userId) });
+        };
+        socket.on('connect', joinUserRoom);
+        joinUserRoom();
+
+        const handleChatListUpdate = () => {
+            // Debounced refetch to ensure ordering and names are accurate for any message text
+            if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current);
+            refreshTimerRef.current = setTimeout(() => {
+                fetchChats();
+            }, 200);
+        };
+        socket.on('chatListUpdate', handleChatListUpdate);
+
+        return () => {
+            socket.off('connect', joinUserRoom);
+            socket.off('chatListUpdate', handleChatListUpdate);
+        };
     }, []);
 
     const handleChatClick = (contactId, receiverName) => {
@@ -63,11 +108,19 @@ const ChatList = ({ onChatSelect }) => {
                         >
                             <div className="chat-details">
                                 <strong className="chat-name">{chat.name}</strong>
+                                <div className="timestampCL">
+                                    {new Date(chat.time).toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                </div>
                                 <p className="chat-last-message">
                                     msg: {chat.lastMessage || "No messages yet"}
                                 </p>
+                                {/* <p>{chat.time}</p> */}
+                                
                             </div>
-                            <button
+                            {/* <button
                                 className="open-chat-btn"
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -75,7 +128,7 @@ const ChatList = ({ onChatSelect }) => {
                                 }}
                             >
                                 Open Chat
-                            </button>
+                            </button> */}
                         </li>
                     ))}
                 </ul>

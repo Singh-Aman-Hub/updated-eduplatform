@@ -68,11 +68,11 @@ io.on('connection', (socket) => {
 
     socket.on('joinRoom', ({ roomId }) => {
         socket.join(roomId);
-        console.log(`📡 User joined room: ${roomId}`);
+        // console.log(`📡 User joined room: ${roomId}`);
     });
 
     socket.on('sendMessage', async ({ roomId, senderId, receiverId, text }) => {
-        console.log(`💬 Message from ${senderId} to ${receiverId}: ${text}`);
+        // console.log(`💬 Message from ${senderId} to ${receiverId}: ${text}`);
 
         let chat = await Chat.findOne({ participants: { $all: [senderId, receiverId] } });
         if (!chat) {
@@ -82,9 +82,13 @@ io.on('connection', (socket) => {
         const newMessage = { senderId, text, timestamp: new Date() };
         chat.messages.push(newMessage);
         await chat.save();
-        console.log(`📡 Broadcasting to room: ${roomId} with ${JSON.stringify(newMessage)}`);
+        // console.log(`📡 Broadcasting to room: ${roomId} with ${JSON.stringify(newMessage)}`);
         // ✅ Emit to all sockets in the room INCLUDING sender
         io.to(roomId).emit('receiveMessage', newMessage);
+
+        // ✅ Also notify both participants' personal rooms to refresh chat list
+        if (senderId) io.to(String(senderId)).emit('chatListUpdate', { peerId: receiverId, lastMessage: newMessage.text });
+        if (receiverId) io.to(String(receiverId)).emit('chatListUpdate', { peerId: senderId, lastMessage: newMessage.text });
     });
 
     socket.on('disconnect', () => {
@@ -121,6 +125,6 @@ io.on('connection', (socket) => {
 
 const PORT= process.nextTick.PORT || 3010
 server.listen(PORT, () => {
-  console.log(`The server is running on port - ${PORT}`)
+//   console.log(`The server is running on port - ${PORT}`)
     console.log(`Server running on http://localhost:${PORT}`);
 });

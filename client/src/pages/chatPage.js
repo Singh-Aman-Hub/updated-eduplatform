@@ -28,27 +28,34 @@ const ChatPage = () => {
     setSelectedChat(chatData);
   };
 
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+
   return (
     <div className="chat-page-container">
-      <div className="left-panel">
-        <ChatList
-          onChatSelect={handleChatSelect}
-          refreshChats={refreshChats} // 👈 Passed to force refresh
-        />
-      </div>
-
-      <div className="right-panel">
-        {selectedChat ? (
-          <ChatWindow
-            senderId={selectedChat.senderId}
-            receiverId={selectedChat.receiverId}
-            receiver={selectedChat.receiver}
-            triggerRefresh={() => setRefreshChats((prev) => !prev)} // 👈 Triggers chat list refresh
+      {(!isMobile || !selectedChat) && (
+        <div className="left-panel">
+          <ChatList
+            onChatSelect={handleChatSelect}
+            refreshChats={refreshChats}
           />
-        ) : (
-          <div className="no-chat-selected">Select a chat to start messaging</div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {(!isMobile || selectedChat) && (
+        <div className="right-panel">
+          {selectedChat ? (
+            <ChatWindow
+              senderId={selectedChat.senderId}
+              receiverId={selectedChat.receiverId}
+              receiver={selectedChat.receiver}
+              onBack={() => setSelectedChat(null)}
+              triggerRefresh={() => setRefreshChats((prev) => !prev)}
+            />
+          ) : (
+            <div className="no-chat-selected">Select a chat to start messaging</div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
