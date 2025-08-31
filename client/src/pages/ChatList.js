@@ -105,8 +105,10 @@ const ChatList = ({ onChatSelect, refreshChats }) => {
                             key={idx}
                             className="chat-list-item"
                             onClick={() => handleChatClick(chat.contactId, chat.name)}
+                            
+                            
                         >
-                            <div className="chat-details">
+                            <div className="chat-details" >
                                 <strong className="chat-name">{chat.name}</strong>
                                 <div className="timestampCL">
                                     {new Date(chat.time).toLocaleTimeString([], {

@@ -150,3 +150,19 @@
 .profile-button:hover {
   background-color: #4338ca;
 }
+@media(max-width:490px){
+  .match-container{
+    max-width:80%;
+    margin-top:30%
+  }
+  #matchBtn {
+    min-width:100%;
+    margin:0px;
+    padding:5px;
+  }
+  .profile-button {
+    position: relative;
+    right:10%;
+  
+  }
+}

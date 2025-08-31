@@ -57,7 +57,7 @@ const Navbar = () => {
                     {student==='school' && <Link to="/match">AI Profile-Match</Link>}
                     {student==='school' && <Link to="/browseseniors">Browse-Seniors</Link>}
                     {student==='college' && <Link to="/browseseniors">Other College Buddies</Link>}
-                  <Link to="/profile">Profile - {username.split(" ")[1]}</Link>
+                  <Link to="/profile">Profile - {username.split(" ")[1]} ⬇</Link>
                   <button className="logout-btn" onClick={handleLogout}>Logout</button>
                 </>
               )}
@@ -88,7 +88,7 @@ const Navbar = () => {
                     {student==='school' && <Link to="/match" onClick={() => setIsOpen(false)}>AI Profile-Match</Link>}
                     {student==='school' && <Link to="/browseseniors" onClick={() => setIsOpen(false)}>Browse-Seniors</Link>}
      
-                  <Link to="/profile" onClick={() => setIsOpen(false)}>Profile - {username.split(" ")[1]}</Link>
+                  <Link to="/profile" onClick={() => setIsOpen(false)}>Profile - {username.split(" ")[1]}⬇</Link>
                   <button className="logout-btn" onClick={handleLogout}>Logout</button>
                 </>
               )}

@@ -167,22 +167,30 @@ const Profile = () => {
             {profile.student === 'college' ? 'Senior Student' : 'Junior Student'}
           </span>
           {(!profile.image) && <h5>* Click on EDIT option to add additional details to profile incl your profile photo!</h5>}
+          <br></br>
+           <div className="profile-detail">
+                <label>Email:   <u>{profile.email}</u></label>
+            </div>
         </div>
+       
 
         <div className="right-section">
-          <div className="profile-detail">
-            <label>Email:</label>
-            <p>{profile.email}</p>
-          </div>
+          
 
           {profile.student === 'college' ? (
             editMode ? (
               <>
+                <div className="profile-edit-label">College Name</div>
                 <input name="college" value={formData.college || ''} onChange={handleChange} placeholder="College Name" />
+                <div className="profile-edit-label">Field of Study</div>
                 <input name="fieldOfStudy" value={formData.fieldOfStudy || ''} onChange={handleChange} placeholder="Field of Study" />
+                <div className="profile-edit-label">Degree</div>
                 <input name="degree" value={formData.degree || ''} onChange={handleChange} placeholder="Degree" />
+                <div className="profile-edit-label">City</div>
                 <input name="city" value={formData.city || ''} onChange={handleChange} placeholder="City" />
+                <div className="profile-edit-label">Current Fee</div>
                 <input name="currentFee" type="number" value={formData.currentFee || ''} onChange={handleChange} placeholder="Current Fee" />
+                <div className="profile-edit-label">Future Goals</div>
                 <textarea name="goals" rows="3" value={formData.goals || ''} onChange={handleChange} placeholder="Future Goals" />
               </>
             ) : (
@@ -198,8 +206,11 @@ const Profile = () => {
           ) : (
             editMode ? (
               <>
+                <div className="profile-edit-label">Preferred College Type</div>
                 <input name="collegeType" value={formData.preferences?.collegeType || ''} onChange={handleChange} placeholder="Preferred College Type" />
+                <div className="profile-edit-label">Field of Interest</div>
                 <input name="fieldInterest" value={formData.preferences?.fieldInterest || ''} onChange={handleChange} placeholder="Field of Interest" />
+                <div className="profile-edit-label">Location Preference</div>
                 <input name="locationPreference" value={formData.preferences?.locationPreference || ''} onChange={handleChange} placeholder="Location Preference" />
               </>
             ) : (

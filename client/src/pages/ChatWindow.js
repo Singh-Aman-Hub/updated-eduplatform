@@ -8,6 +8,7 @@ const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) 
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
     const socketRef = useRef(null);
+    const currentRoomRef = useRef(null);
 
     const roomId = useCallback(() => {
         return [senderId, receiverId].sort().join('_');
@@ -27,9 +28,18 @@ const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) 
 
         const socket = socketRef.current;
 
+        const newRoomId = roomId();
+        
+        // Only clear messages and join room if we're switching to a different chat
+        if (currentRoomRef.current !== newRoomId) {
+            currentRoomRef.current = newRoomId;
+            setMessages([]); // Clear messages only when switching rooms
+            socket.emit('joinRoom', { roomId: newRoomId });
+        }
+
         socket.on('connect', () => {
             console.log('✅ Connected to socket:', socket.id);
-            socket.emit('joinRoom', { roomId: roomId() });
+            socket.emit('joinRoom', { roomId: newRoomId });
         });
 
         const handleReceiveMessage = (message) => {
@@ -48,7 +58,22 @@ const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) 
         const fetchChatHistory = async () => {
             try {
                 const res = await axios.get(`/api/chats/${senderId}/${receiverId}`);
-                setMessages(res.data);
+                // Merge history with any current messages to preserve optimistic updates
+                setMessages((prevMessages) => {
+                    // If we have current messages, merge them with history
+                    if (prevMessages.length > 0) {
+                        const historyMessages = res.data || [];
+                        const currentMessageIds = new Set(prevMessages.map(m => m.timestamp + m.text));
+                        
+                        // Filter out duplicates and combine
+                        const uniqueHistory = historyMessages.filter(msg => 
+                            !currentMessageIds.has(msg.timestamp + msg.text)
+                        );
+                        
+                        return [...prevMessages, ...uniqueHistory];
+                    }
+                    return res.data;
+                });
             } catch (err) {
                 console.error('❌ Error fetching chat history:', err);
             }
@@ -81,7 +106,7 @@ const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) 
             text: input,
         });
         // ensure chat list updates immediately
-        triggerRefresh && triggerRefresh();
+       // triggerRefresh && triggerRefresh(); repeats the sent messages
 
         setInput('');
     };
@@ -93,7 +118,7 @@ const ChatWindow = ({ senderId, receiverId, receiver, onBack, triggerRefresh }) 
     return (
         <div className="chat-window">
             <div className="chat-header">
-                <button className="back-btn" onClick={onBack}>Back</button>
+                <button className="back-btn" onClick={onBack}>⬅</button>
                 {localStorage.getItem('student') === 'school' ? (
                     <span>Ask your Senior - <u>{receiver}</u></span>
                 ) : (

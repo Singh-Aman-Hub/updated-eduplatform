@@ -2,17 +2,20 @@
 #space{
   height:20vh;
 }
+
 .loading-container {
+  min-height:100vh;
+  min-width:100vw;
 background-image: url('load_img.png');
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
   /* background: linear-gradient(135deg, #ffeaa7, #fab1a0); */
 
   color: #2d3436;
@@ -84,3 +87,12 @@ background-image: url('load_img.png');
   to { transform: rotateX(360deg); }
 }
 
+@media(max-width:880px){
+  #loader, #side, #back {
+        margin-top: 50%;
+    margin-left: 35%;
+  }
+  h2{
+    margin-top: 70%;
+  }
+}

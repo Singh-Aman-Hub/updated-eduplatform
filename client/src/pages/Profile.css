@@ -1,3 +1,12 @@
+/* Label for edit section in profile */
+.profile-edit-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a90e2;
+  margin-bottom: 0.2rem;
+  margin-top: 0.7rem;
+  
+}
 .profile-container {
   display: flex;
   justify-content: center;
@@ -15,7 +24,8 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   padding: 2rem;
   min-width: 700px;
-  width: 100%;
+  /* max-width: 70vw; */
+  min-height:50vh;
   transition: transform 0.3s ease;
 }
 
@@ -45,11 +55,12 @@
   font-size: 1.8rem;
   font-weight: 600;
   color: #333;
+  margin:0;
 }
 
 .profile-type {
   font-size: 1rem;
-  background-color: #4a90e2;
+  background-color: #2496d8a5;
   color: white;
   padding: 0.4rem 1rem;
   border-radius: 20px;
@@ -153,20 +164,48 @@ textarea {
   .profile-card {
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 1rem 0.5rem;
+    min-width: unset;
+    max-width: 85vw;
+    width: 85vw;
+    border-radius: 14px;
   }
-
   .left-section {
     border-right: none;
     border-bottom: 2px solid #f0f0f0;
     padding-right: 0;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     width: 100%;
   }
-
+  .profile-img {
+    width: 90px;
+    height: 90px;
+    border-width: 3px;
+  }
   .right-section {
     width: 100%;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .profile-detail {
+    margin-bottom: 0.7rem;
+    font-size: 0.98rem;
+  }
+  .profile-edit-label {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1rem;
+    font-size: 0.98rem;
+    color: #4a90e2;
+    font-weight: 500;
+  }
+  input,
+  textarea {
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+    box-sizing: border-box;
   }
 }
 .upload-btn {

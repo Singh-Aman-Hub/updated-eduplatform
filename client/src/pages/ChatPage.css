@@ -14,7 +14,6 @@
   border-right: 1px solid #f0c0a0;
   overflow-y: auto;
   background-color: var(--bg-panel);
-  
 }
 
 .right-panel {
@@ -31,19 +30,37 @@
   text-align: center;
 }
 
-/* Mobile layout: stack panels and show only list or chat */
+/* Mobile specific styles */
+.mobile-chat-list {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--bg-panel);
+}
+
+.mobile-chat-window {
+  
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-app);
+}
+
+/* Mobile layout: show only one panel at a time */
 @media (max-width: 768px) {
   .chat-page-container {
-    height: calc(100vh - 56px);
+    height: 100vh;
     width: 100%;
+    overflow: hidden;
   }
+  
   .left-panel {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    border-right: none;
+    display: none; /* Hide desktop left panel on mobile */
   }
+  
   .right-panel {
-    width: 100%;
+   
+    display: none; /* Hide desktop right panel on mobile */
   }
 }

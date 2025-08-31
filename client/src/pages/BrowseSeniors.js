@@ -64,14 +64,14 @@ const BrowseSeniors = () => {
                                 <p><strong>Field:</strong> {senior.fieldOfStudy || "N/A"}</p>
                                 <p><strong>College:</strong> {senior.college || "N/A"}</p>
                                 <p><strong>City:</strong> {senior.city || "N/A"}</p>
-
-                                <button className="message-btn" onClick={() => navigate(`/profile/${senior._id}`)}>
-                                    View Profile
-                                </button>
-                                <button className="message-btn" onClick={() => handleSendMessage(senior)}>
-                                    Message
-                                </button>
-                                
+                                <div className="senior-buttons-row">
+                                    <button className="message-btn" onClick={() => navigate(`/profile/${senior._id}`)}>
+                                        View Profile
+                                    </button>
+                                    <button className="message-btn" onClick={() => handleSendMessage(senior)}>
+                                        Message
+                                    </button>
+                                </div>
                             </div>
                             <div className="senior-image-container">
                                 <img
@@ -79,9 +79,7 @@ const BrowseSeniors = () => {
                                     alt={`${senior.name}'s profile`}
                                     className="senior-image"
                                 />
-                                
                             </div>
-                            
                         </div>
                     </div>
                 ))}

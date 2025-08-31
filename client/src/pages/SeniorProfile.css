@@ -22,6 +22,7 @@
   min-width: 700px;
   width: 100%;
   transition: transform 0.3s ease;
+  
 }
 
 .senior-profile-card:hover {
@@ -54,7 +55,7 @@
 
 .profile-type {
   font-size: 1rem;
-  background-color: #4a90e2;
+  background-color: #052e5e78;
   color: white;
   padding: 0.4rem 1rem;
   border-radius: 20px;
@@ -80,6 +81,8 @@
   color: #4a4a4a;
   margin-bottom: 0.3rem;
   font-size: 1rem;
+  /* width:9; */
+  /* display:inline-block; */
 }
 
 .profile-detail p {
@@ -99,20 +102,34 @@
   .senior-profile-card {
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 1rem 0.5rem;
+    min-width: unset;
+    max-width: 98vw;
+    width: 98vw;
+    border-radius: 14px;
   }
-
   .left-section {
     border-right: none;
     border-bottom: 2px solid #f0f0f0;
     padding-right: 0;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     width: 100%;
   }
-
+  .profile-img, .senior-image {
+    width: 90px;
+    height: 90px;
+    border-width: 3px;
+  }
   .right-section {
     width: 100%;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+  }
+  .profile-detail {
+    margin-bottom: 0.7rem;
+    font-size: 0.98rem;
   }
 }
 

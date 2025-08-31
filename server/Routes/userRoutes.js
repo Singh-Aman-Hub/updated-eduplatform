@@ -11,7 +11,8 @@ const upload = multer({ storage });
 // const { GoogleGenAI } = require('@google/genai');
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI("AIzaSyD5_ZQccuCd0gRCbqRKKobH-BzavyQcYRE"); 
+const gemini= process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(gemini); 
 
 const JWT_SECRET= process.env.JWT_SECRET
 // console.log("JWT_SECRET:", JWT_SECRET);

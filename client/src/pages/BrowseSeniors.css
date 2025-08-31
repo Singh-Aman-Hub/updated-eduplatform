@@ -111,10 +111,27 @@ body {
 }
 
 
+
+/* Default: photo right, info left, buttons row at bottom of info */
 .senior-content {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.senior-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.senior-buttons-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 18px;
 }
 
 .senior-image-container {
@@ -134,18 +151,36 @@ body {
 /* Make sure image adjusts well on small screens */
 @media screen and (max-width: 768px) {
   .senior-content {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
-
+  .senior-info {
+    width: 60%;
+    min-width: 0;
+  }
   .senior-image-container {
-    margin: 20px 0 0 0;
-    padding-bottom: 50px;
+    margin: 0 0 0 6px;
+    padding-bottom: 0;
+    width: 40%;
+    height:60%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
-
   .senior-image {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
+  }
+  .senior-buttons-row {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+  }
+  .senior-card {
+    padding: 18px 10px;
   }
 }
 
